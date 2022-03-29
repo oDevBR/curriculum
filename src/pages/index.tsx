@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import styles from './home.module.scss';
+import styles from '../styles/pages/home.module.scss';
 import { DonateButton } from '../components/DonateButton/index';
 
 export default function Home() {
