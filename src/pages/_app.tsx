@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app'
 import React from 'react'
+import { Header } from '../components/Header'
 
 import '../styles/global.scss'
 
@@ -12,5 +13,10 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV !== 'production') {
 }
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
+  )
 }
