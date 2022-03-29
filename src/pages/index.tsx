@@ -6,13 +6,11 @@ import { DonateButton } from '../components/DonateButton/index';
 import { stripe } from '../services/stripe';
 
 interface HomeProps {
-  product: {
-    paymentId: string;
-    url: string;
-  }
+  paymentLink: string;
+
 }
 
-export default function Home({ product }: HomeProps) {
+export default function Home({ paymentLink }: HomeProps) {
   return (
     <>
       <Head>
@@ -22,7 +20,7 @@ export default function Home({ product }: HomeProps) {
         <section className={styles.hero}>
           <span>👏 Hey, welcome</span>
           <h1>Feel free to <span>help me</span> however you can.</h1>
-          <DonateButton paymentId={product.paymentId} paymentUrl={product.url} />
+          <DonateButton paymentUrl={paymentLink} />
         </section>
 
         <img src="/images/avatar.svg" alt="Girl coding" />
@@ -41,14 +39,9 @@ export const getStaticSideProps: GetStaticProps = async () => {
     ],
   });
 
-  const product = {
-    paymentId: paymentLink.id,
-    url: paymentLink.url,
-  }
-
   return {
     props: {
-      product
+      paymentLink
     },
     revalidate: 60 * 60 * 24 * 7, // 1 week
   }

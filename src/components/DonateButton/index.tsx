@@ -1,11 +1,10 @@
 import styles from './styles.module.scss'
 
 interface DonateButtonProps {
-  paymentId: string
   paymentUrl: string
 }
 
-export function DonateButton({ paymentId, paymentUrl }: DonateButtonProps) {
+export function DonateButton({ paymentUrl }: DonateButtonProps) {
   function HandleClick() {
     window.open(paymentUrl, '_blank')
   }
