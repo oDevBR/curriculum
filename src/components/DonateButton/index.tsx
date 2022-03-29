@@ -1,16 +1,18 @@
 import styles from './styles.module.scss'
 
-interface DonateButtonProps {
-  paymentUrl: string
-}
+export function DonateButton() {
+  const paymentLink = 'https://buy.stripe.com/test_6oEaHY4D61x3aROfYZ';
 
-export function DonateButton({ paymentUrl }: DonateButtonProps) {
-  function HandleClick() {
-    window.open(paymentUrl, '_blank')
+  function handleDonation() {
+    window.open(paymentLink, '_blank')
   }
 
   return (
-    <button type="button" className={styles.donateButton} onClick={HandleClick}>
+    <button
+      type="button"
+      className={styles.donateButton}
+      onClick={handleDonation}
+    >
       Buy me a coffee
     </button>
   )
