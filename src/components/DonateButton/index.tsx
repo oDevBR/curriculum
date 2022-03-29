@@ -1,8 +1,17 @@
 import styles from './styles.module.scss'
 
-export function DonateButton() {
+interface DonateButtonProps {
+  paymentId: string
+  paymentUrl: string
+}
+
+export function DonateButton({ paymentId, paymentUrl }: DonateButtonProps) {
+  function HandleClick() {
+    window.open(paymentUrl, '_blank')
+  }
+
   return (
-    <button type="button" className={styles.donateButton}>
+    <button type="button" className={styles.donateButton} onClick={HandleClick}>
       Buy me a coffee
     </button>
   )

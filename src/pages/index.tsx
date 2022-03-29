@@ -1,11 +1,18 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head'
 
 import styles from './home.module.scss';
 import { DonateButton } from '../components/DonateButton/index';
+import { stripe } from '../services/stripe';
 
-export default function Home({ name }) {
-  console.log(name)
+interface HomeProps {
+  product: {
+    paymentId: string;
+    url: string;
+  }
+}
+
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
@@ -15,7 +22,7 @@ export default function Home({ name }) {
         <section className={styles.hero}>
           <span>👏 Hey, welcome</span>
           <h1>Feel free to <span>help me</span> however you can.</h1>
-          <DonateButton />
+          <DonateButton paymentId={product.paymentId} paymentUrl={product.url} />
         </section>
 
         <img src="/images/avatar.svg" alt="Girl coding" />
@@ -24,11 +31,25 @@ export default function Home({ name }) {
   )
 }
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticSideProps: GetStaticProps = async () => {
+  const paymentLink = await stripe.paymentLinks.create({
+    line_items: [
+      {
+        price: 'price_1KiU1iIHMpOQ00FhCMtl66af',
+        quantity: 1,
+      },
+    ],
+  });
+
+  const product = {
+    paymentId: paymentLink.id,
+    url: paymentLink.url,
+  }
+
   return {
     props: {
-      name: 'Next.js',
+      product
     },
+    revalidate: 60 * 60 * 24 * 7, // 1 week
   }
 }
