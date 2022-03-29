@@ -1,12 +1,34 @@
-import Head from "next/head";
+import { GetServerSideProps } from 'next';
+import Head from 'next/head'
 
-export default function Home() {
+import styles from './home.module.scss';
+import { DonateButton } from '../components/DonateButton/index';
+
+export default function Home({ name }) {
+  console.log(name)
   return (
     <>
       <Head>
-        <title>Home | Curriculum</title>
+        <title>Home | curriculum</title>
       </Head>
-      <h1>Hello World Next!</h1>
+      <main className={styles.contentContainer}>
+        <section className={styles.hero}>
+          <span>👏 Hey, welcome</span>
+          <h1>Feel free to <span>help me</span> however you can.</h1>
+          <DonateButton />
+        </section>
+
+        <img src="/images/avatar.svg" alt="Girl coding" />
+      </main>
     </>
-  );
+  )
+}
+
+// eslint-disable-next-line unicorn/prevent-abbreviations
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      name: 'Next.js',
+    },
+  }
 }
