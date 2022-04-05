@@ -2,7 +2,7 @@ Curriculum
 
 ## 📖 About the project
 
-Pretty resume automatically generated from LinkedIn with some extra features.
+Pretty resume automatically generated from ?? with some extra features.
 
 ## 🌐 Deploy
 
